@@ -1,0 +1,7 @@
+.quote{
+    position: absolute;
+    right: 40px;
+    top: 20px;
+    font-weight: 600;
+    font-size: 24px;
+}

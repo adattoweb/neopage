@@ -1,0 +1,59 @@
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  background-image: var(--background, url("/themes/themes/theme1.jpg"));
+  background-position: 50%;
+  background-size: cover;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+.search{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 1000px;
+}
+@media screen and (max-width: 1600px){
+  .search{
+      width: 800px;
+  }
+}
+
+@media screen and (max-width: 1300px){
+  .search{
+      width: 700px;
+  }
+}
+@media screen and (max-width: 900px){
+  .search{
+      width: 600px;
+  }
+}
+@media screen and (max-width: 700px){
+  .search{
+      width: 500px;
+  }
+}
+
+@media screen and (max-width: 550px){
+  .search{
+      width: 400px;
+  }
+}
+@media screen and (max-width: 450px){
+  .search{
+      width: 350px;
+  }
+}
+@media screen and (max-width: 400px){
+  .search{
+      width: 300px;
+  }
+}
+@media screen and (max-width: 330px){
+  .search{
+      width: 250px;
+  }
+}

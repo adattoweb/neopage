@@ -1,0 +1,72 @@
+.context__modal{
+    position: absolute;
+    border-radius: calc(var(--radius, 24) - 6px);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    user-select: none;
+}
+.modal{
+    position: absolute;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    padding: 12px 18px;
+    gap: 8px;
+    width: 250px;
+    z-index: 1000;
+}
+.item {
+    font-size: 18px;
+    font-weight: 400;
+    transition: 0.2s ease all;
+    cursor: pointer;
+    padding: 12px 18px;
+    border-radius: calc(var(--radius, 24) - 6px);
+    text-decoration: none;
+}
+.item:hover {
+    background-color: rgba(255, 255, 255, 0.07);
+}
+
+.header{
+    font-size: 22px;
+    font-weight: 500;
+    overflow: hidden;
+}
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.input__label{
+    font-size: 16px;
+    font-weight: 500;
+}
+.input{
+    outline: none;
+    border: none;
+    padding: 6px 5px 6px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: rgba(255,255,255,0.05);
+}
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.button{
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 4px 0px;
+    user-select: none;
+}
+.error {
+    background: linear-gradient(90deg, #ff4949, #d57e7e);
+    -webkit-background-clip: text; /* для Chrome/Safari */
+    -webkit-text-fill-color: transparent; /* приховати колір тексту */
+}

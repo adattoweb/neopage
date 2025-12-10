@@ -1,0 +1,70 @@
+.dropdown{
+    position: relative;
+    display: inline-block;
+}
+
+.button{
+    border-radius: calc(var(--radius, 24) * 0.5);
+    background-color: rgba(255,255,255,0.05);
+    cursor: pointer;
+    min-width: 80px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+}
+.button p{
+    font-size: 18px;
+    font-weight: 500;
+    user-select: none;
+    padding: 0 14px;
+    box-sizing: border-box;
+}
+.content{
+    position: absolute;
+    background-color: rgba(255,255,255,0.05);
+    backdrop-filter: blur(4px);
+    margin-top: 5px;
+    border-radius: calc(var(--radius, 24) * 0.5);
+    box-sizing: border-box;
+    width: 100%;
+    z-index: 999;
+}
+.select{
+    font-size: 16px;
+    font-weight: 500;
+    user-select: none;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: calc(var(--radius, 24) * 0.5);
+    overflow: hidden;
+}
+.select:hover{
+    background-color: rgba(255,255,255,0.1);
+}
+
+@media screen and (max-width: 1600px){
+    .button{
+        height: 32px;
+    }
+    .button p{
+        font-size: 16px;
+    }
+    .select{
+        font-size: 14px;
+        padding: 6px 8px;
+    }
+}
+
+/* @media screen and (max-width: 700px){
+    .button{
+        height: 30px;
+    }
+    .button p{
+        font-size: 14px;
+        padding: 0px 8px;
+    }
+    .select{
+        font-size: 12px;
+        padding: 5px 7px;
+    }
+} */

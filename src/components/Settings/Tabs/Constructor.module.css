@@ -1,0 +1,89 @@
+.block{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.block__name{
+    font-size: 22px;
+    font-weight: 500;
+    padding-right: 10px;
+}
+.input{
+    outline: none;
+    background-color: rgba(255,255,255,0.05);
+    border: none;
+    font-size: 18px;
+    width: 150px;
+    height: 30px;
+    padding: 2px 12px;
+    border-radius: calc(var(--radius, 24) * 0.5);
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 150px;
+    height: 6px;
+    background-color: rgba(255,255,255,0.05);
+    border-radius: calc(var(--radius, 24) * 0.25);
+    outline: none;
+    cursor: pointer;
+  }
+  
+  /* Лінія для Firefox */
+  .slider::-moz-range-track {
+    background-color: rgba(255,255,255,0.05);
+    height: 4px;
+    border-radius: 4px;
+  }
+  
+  /* Кружок (ручка) */
+  .slider::-webkit-slider-thumb, .slider::-moz-range-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: background 0.2s;
+    border: none;
+  }
+  
+  .slider::-webkit-slider-thumb:hover, .slider::-moz-range-thumb:hover {
+    background: rgba(255,255,255,0.2);
+  }
+  /*   ADAPTIVE   */
+
+@media screen and (max-width: 2000px){
+  .block__name{
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 1600px){
+  .block__name{
+    font-size: 18px;
+  }
+  .input{
+    width: 100px;
+  }
+  .slider{
+    width: 100px;
+  }
+  .slider::-webkit-slider-thumb, .slider::-moz-range-thumb{
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media screen and (max-width: 800px){
+  .block__name{
+    font-size: 16px;
+  }
+  .input{
+    width: 80px;
+  }
+  .slider{
+    width: 80px;
+  }
+}
