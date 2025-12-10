@@ -1,17 +1,10 @@
-import { useContext } from "react";
+import { useLanguageStore } from "@/store/useLanguageStore";
 import styles from "./DisplayBar.module.css"
-import { LanguageContext } from "@/context/contexts";
+import { useNameStore } from "@/store/useNameStore";
 
-interface BarProps {
-    name: string
-}
-
-export default function HelloBar({ name }:BarProps){
-    const langContext = useContext(LanguageContext);
-    
-    if(langContext === null) return
-
-    const { lang } = langContext;
+export default function HelloBar(){
+    const lang = useLanguageStore(state => state.lang);
+    const name = useNameStore(state => state.name)
     return (
         <h1 className={styles.hello}>{lang === "en" ? "Hi" : "Привіт"}, {name}</h1>
     )

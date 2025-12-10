@@ -1,13 +1,13 @@
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion"
 import styles from "./Modal.module.css"
-import type { Pos } from "@/App";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { regex } from "@/helpers/HTTPRegex";
-import { LanguageContext, ModalsContext } from "@/context/contexts";
+import { useLanguageStore } from "@/store/useLanguageStore";
+import { useModalsStore } from "@/store/useModalStore";
+import { usePosStore } from "@/store/usePosStore";
 
 interface ModalProps {
-    pos: React.RefObject<Pos>
     themes: string[]
     setThemes: React.Dispatch<React.SetStateAction<string[]>>
 }
@@ -17,21 +17,17 @@ interface Error {
     ID: number
 }
 
-export default function ThemeModal({ pos, themes, setThemes }:ModalProps){
-    const langContext = useContext(LanguageContext);
-    if (!langContext) throw new Error("LanguageContext is null");
-    const { lang } = langContext;
-
-    const context = useContext(ModalsContext);
-    if (!context ) throw new Error("Context is null");
-    const { modals, setModals } = context;
-    
+export default function ThemeModal({ themes, setThemes }:ModalProps){
     const [link, setLink] = useState("")
     const [error, setError] = useState<Error>({text: "", ID: 0})
 
-    const [actualPos, setActualPos] = useState(pos.current)
-    useEffect(() => {
-        setActualPos({x: pos.current.x, y: pos.current.y})
+    const modals = useModalsStore(state => state.modals)
+    const setModals = useModalsStore(state => state.setModals)
+    const lang = useLanguageStore(state => state.lang);
+    const posStore = usePosStore.getState()
+
+    useEffect(() => { // ТРЕБА БУДЕ ПЕРЕГЛЯНУТИ
+        posStore.setPos({x: posStore.pos.x, y: posStore.pos.y})
     }, [modals])
 
     function disableError(){
@@ -66,7 +62,7 @@ export default function ThemeModal({ pos, themes, setThemes }:ModalProps){
 
     return createPortal(
         <AnimatePresence mode="wait">
-            {modals.isThemeCreateOpen && <motion.div key="modal" className={`${styles.modal} back-alpha`} style={{top: actualPos.y, left: actualPos.x}} initial={{opacity: 0, scale: 0.5}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0.8}} onClick={(e) => e.stopPropagation()}>
+            {modals.isThemeCreateOpen && <motion.div key="modal" className={`${styles.modal} back-alpha`} style={{top: posStore.pos.y, left: posStore.pos.x}} initial={{opacity: 0, scale: 0.5}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0.8}} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.wrapper}>
                     <label className={styles.input__label} htmlFor="link">{lang === "en" ? "Link" : "Посилання"}</label>
                     <input className={styles.input} type="text" id="link" value={link} onChange={(e) => setLink(e.target.value)}/>

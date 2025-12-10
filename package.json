@@ -2,7 +2,7 @@
   "name": "neopage",
   "homepage": "https://adattoweb.github.io/neopage",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
@@ -15,7 +15,8 @@
   "dependencies": {
     "framer-motion": "^12.23.25",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

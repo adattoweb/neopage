@@ -1,8 +1,7 @@
 import Pin from "./Pin"
 import Add from "./Add"
 import styles from "../Settings.module.css"
-import { ModalsContext } from "@/context/contexts"
-import { useContext } from "react"
+import { useModalsStore } from "@/store/useModalStore"
 
 interface PinProps {
     pins: PinObject[]
@@ -15,10 +14,8 @@ export interface PinObject {
 }
 
 export default function Pinned({ pins, setSelectedName }:PinProps){
-    const context = useContext(ModalsContext);
-    if (!context) throw new Error("Context is null");
-
-    const { modals, setModals } = context;
+    const modals = useModalsStore(state => state.modals)
+    const setModals = useModalsStore(state => state.setModals)
     function handleRightClick(e: React.MouseEvent<HTMLParagraphElement>, name:string){
         e.preventDefault()
         e.stopPropagation()

@@ -11,18 +11,14 @@ interface ProviderProps {
     selected: SelectedObject
     pins: PinObject[]
     setSelectedName: React.Dispatch<React.SetStateAction<string>>
-    name: string
-    setName: React.Dispatch<React.SetStateAction<string>>
-    display: string
-    setDisplay: React.Dispatch<React.SetStateAction<string>>
     themes: string[]
     setThemes: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-export default function NavProvider({ selected, pins, setSelectedName, display, setDisplay, name, setName, themes, setThemes }:ProviderProps){
+export default function NavProvider({ selected, pins, setSelectedName, themes, setThemes }:ProviderProps){
     return (
         <div className={styles.content} id="nav">
-            {selected.name === "global" && <Main display={display} setDisplay={setDisplay} name={name} setName={setName}/>}
+            {selected.name === "global" && <Main/>}
             {selected.name === "pinned" && <Pinned pins={pins} setSelectedName={setSelectedName}/>}
             {selected.name === "themes_done" && <Themes/>}
             {selected.name === "themes_custom" && <CustomThemes themes={themes} setThemes={setThemes}/>}

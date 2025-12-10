@@ -1,8 +1,8 @@
 import styles from "../Settings.module.css"
 
-import { useContext, useState } from "react"
+import { useState } from "react"
 import Add from "./Add"
-import { ModalsContext } from "@/context/contexts"
+import { useModalsStore } from "@/store/useModalStore"
 
 export interface Theme {
     src: string
@@ -42,10 +42,8 @@ function ThemesItem({ src, index, selectedIndex, setSelectedIndex, themes, setTh
 export default function CustomThemes({ themes, setThemes }:CustomProps){
     const [selectedIndex, setSelectedIndex] = useState(themes.findIndex(el => el === localStorage.getItem("neopage-background")))
 
-    const context = useContext(ModalsContext);
-    if (!context) throw new Error("Context is null");
-
-    const { modals, setModals } = context;
+    const modals = useModalsStore(state => state.modals)
+    const setModals = useModalsStore(state => state.setModals)
 
 
     return (

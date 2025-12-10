@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useState } from "react"
 import styles from "./Settings.module.css"
 
 import NavItem from "./NavItem"
@@ -6,17 +6,12 @@ import NavProvider from "./NavProvider"
 
 import { motion } from "framer-motion"
 import type { PinObject } from "./Tabs/Pinned"
-import { LanguageContext } from "@/context/contexts"
+import { useLanguageStore } from "@/store/useLanguageStore"
+import { useSettingsOpenStore } from "@/store/useSettingsOpen"
 
 interface SettingsProps {
-    isOpen: boolean
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
     pins: PinObject[]
     setSelectedName: React.Dispatch<React.SetStateAction<string>>
-    display: string
-    setDisplay: React.Dispatch<React.SetStateAction<string>>
-    name: string
-    setName: React.Dispatch<React.SetStateAction<string>>
     themes: string[]
     setThemes: React.Dispatch<React.SetStateAction<string[]>>
 }
@@ -31,13 +26,12 @@ export interface SelectedObject {
     index: number
 }
 
-export default function Settings({ isOpen, setIsOpen, pins, setSelectedName, display, setDisplay, name, setName, themes, setThemes }:SettingsProps){
+export default function Settings({ pins, setSelectedName, themes, setThemes }:SettingsProps){
     const [selected, setSelected] = useState<SelectedObject>({name: "global", index: 0})
 
-    const langContext = useContext(LanguageContext);
-    if (!langContext) throw new Error("Context is null");
-    
-    const { lang } = langContext;
+    const lang = useLanguageStore(state => state.lang);
+    const isOpen = useSettingsOpenStore(state => state.isOpen)
+    const setIsOpen = useSettingsOpenStore(state => state.setIsOpen)
 
     const navArray: NavItemObject[] = [
         {
@@ -78,7 +72,7 @@ export default function Settings({ isOpen, setIsOpen, pins, setSelectedName, dis
                     {navArray.map((el, index) => <NavItem key={el.text} text={el.text} select={{name: el.select, index: index}} selected={selected} setSelected={setSelected} length={navArray.length}/>)}
                 </div>
             </div>
-            <NavProvider selected={selected} pins={pins} setSelectedName={setSelectedName} display={display} setDisplay={setDisplay} name={name} setName={setName} themes={themes} setThemes={setThemes}/>
+            <NavProvider selected={selected} pins={pins} setSelectedName={setSelectedName} themes={themes} setThemes={setThemes}/>
         </motion.div>
     )
 }

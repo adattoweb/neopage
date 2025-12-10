@@ -1,7 +1,6 @@
 import styles from "./App.module.css"
 
-import HelloBar from "./components/DisplayBar/HelloBar"
-import TimeBar from "./components/DisplayBar/TimeBar"
+import DisplayBar from "./components/DisplayBar/DisplayBar"
 import SearchBar from "./components/SearchBar/SearchBar"
 import SearchFooter from "./components/SearchFooter/SearchFooter"
 import Settings from "./components/Settings/Settings"
@@ -14,21 +13,16 @@ import { useState, useEffect, useRef } from "react"
 import { readLocal } from "./helpers/readLocal"
 import type { PinObject } from "./components/Settings/Tabs/Pinned"
 import Quotes from "./components/Quotes/Quotes"
-import { LanguageProvider, ModalsProvider, SettingsProvider } from "./context/Providers"
 import { initialization } from "./helpers/initialization"
 import Wrapper from "./Wrapper"
 import ThemeModal from "./components/Modals/ThemeModal"
-
-
-
-export interface Pos {
-  x: number
-  y: number
-}
+import { usePosStore } from "./store/usePosStore"
 
 export default function App() {
-
   initialization()
+
+  const rerender = useRef(0)
+  console.log(rerender.current++)
 
   useEffect(() => {
     const isDark = localStorage.getItem("neopage-theme") === "dark"
@@ -38,29 +32,19 @@ export default function App() {
     document.documentElement.style.setProperty('--background', `url("${localStorage.getItem("neopage-background")}")`);
   }, [])
 
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
-
   const [selectedName, setSelectedName] = useState("")
-  
-  const [name, setName] = useState(localStorage.getItem("neopage-name")!)
 
   const [pins, setPins] = useState<PinObject[]>(readLocal("neopage-pins"))
   const [themes, setThemes] = useState<string[]>(readLocal('neopage-themes'))
-
-  const [display, setDisplay] = useState(localStorage.getItem("neopage-display")!)
-
-  const pos = useRef<Pos>({ x: 0, y: 0 })
-
   
   useEffect(() => {
     const handleMove = (e: MouseEvent) => {
-      pos.current = { x: e.clientX, y: e.clientY };
+      usePosStore.getState().setPos({ x: e.clientX, y: e.clientY });
     };
-
     window.addEventListener("mousemove", handleMove);
-
     return () => window.removeEventListener("mousemove", handleMove);
   }, []);
+  
   
 
   const isQuoteEnabled = localStorage.getItem("neopage-quote") === "true"
@@ -68,25 +52,19 @@ export default function App() {
 
   return (
     <>
-      <LanguageProvider>
-        <ModalsProvider>
-          <EditModal pos={pos} selectedName={selectedName} setSelectedName={setSelectedName} setPins={setPins} />
-          <CreateModal setPins={setPins} pos={pos}/>
-          <ThemeModal pos={pos} themes={themes} setThemes={setThemes}/>
-          <Wrapper>
-            {isQuoteEnabled && <Quotes/>}
-            <div className={styles.search}>
-              {display !== "nothing" ? display === "time" ? <TimeBar /> : <HelloBar name={name}/> : null}
-              <SearchBar />
-              <SearchFooter pins={pins} setSelectedName={setSelectedName} />
-              <Modal pos={pos} setIsSettingsOpen={setIsSettingsOpen}/>
-              <SettingsProvider>
-                <Settings isOpen={isSettingsOpen} setIsOpen={setIsSettingsOpen} pins={pins} setSelectedName={setSelectedName} display={display} setDisplay={setDisplay} name={name} setName={setName} themes={themes} setThemes={setThemes} />
-              </SettingsProvider>
-            </div>
-          </Wrapper>
-        </ModalsProvider>
-      </LanguageProvider>
+      <EditModal selectedName={selectedName} setSelectedName={setSelectedName} setPins={setPins} />
+      <CreateModal setPins={setPins} />
+      <ThemeModal themes={themes} setThemes={setThemes} />
+      <Wrapper>
+        {isQuoteEnabled && <Quotes />}
+        <div className={styles.search}>
+          <DisplayBar />
+          <SearchBar />
+          <SearchFooter pins={pins} setSelectedName={setSelectedName} />
+          <Modal />
+          <Settings pins={pins} setSelectedName={setSelectedName} themes={themes} setThemes={setThemes} />
+        </div>
+      </Wrapper>
     </>
   )
 }

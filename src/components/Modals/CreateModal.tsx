@@ -1,16 +1,16 @@
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion"
 import styles from "./Modal.module.css"
-import type { Pos } from "@/App";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { readLocal } from "@/helpers/readLocal";
 import type { PinObject } from "../Settings/Tabs/Pinned";
 import { regex } from "@/helpers/HTTPRegex";
-import { LanguageContext, ModalsContext } from "@/context/contexts";
+import { useModalsStore } from "@/store/useModalStore";
+import { useLanguageStore } from "@/store/useLanguageStore";
+import { usePosStore } from "@/store/usePosStore";
 
 interface ModalProps {
     setPins: React.Dispatch<React.SetStateAction<PinObject[]>>
-    pos: React.RefObject<Pos>
 }
 
 interface Error {
@@ -18,24 +18,18 @@ interface Error {
     ID: number
 }
 
-export default function CreateModal({ setPins, pos }:ModalProps){
+export default function CreateModal({ setPins }:ModalProps){
     const [name, setName] = useState("")
     const [link, setLink] = useState("")
     const [error, setError] = useState<Error>({text: "", ID: 0})
 
-    const context = useContext(ModalsContext);
-    if (!context) throw new Error("Context is null");
+    const modals = useModalsStore(state => state.modals)
+    const setModals = useModalsStore(state => state.setModals)
+    const lang = useLanguageStore(state => state.lang);
+    const posStore = usePosStore.getState()
 
-    const { modals, setModals } = context;
-
-    const langContext = useContext(LanguageContext);
-    if (!langContext) throw new Error("Context is null");
-    
-    const { lang } = langContext;
-
-    const [actualPos, setActualPos] = useState(pos.current)
-    useEffect(() => {
-        setActualPos({x: pos.current.x, y: pos.current.y})
+    useEffect(() => { // ТРЕБА БУДЕ ПЕРЕГЛЯНУТИ
+        posStore.setPos({x: posStore.pos.x, y: posStore.pos.y})
     }, [modals])
 
     function disableError(){
@@ -83,7 +77,7 @@ export default function CreateModal({ setPins, pos }:ModalProps){
 
     return createPortal(
         <AnimatePresence mode="wait">
-            {modals.isCreateOpen && <motion.div key="modal" className={`${styles.modal} back-alpha`} style={{top: actualPos.y, left: actualPos.x}} initial={{opacity: 0, scale: 0.5}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0.8}} onClick={(e) => e.stopPropagation()}>
+            {modals.isCreateOpen && <motion.div key="modal" className={`${styles.modal} back-alpha`} style={{top: posStore.pos.y, left: posStore.pos.x}} initial={{opacity: 0, scale: 0.5}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0.8}} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.wrapper}>
                     <label className={styles.input__label} htmlFor="name">{lang === "en" ? "Name" : "Назва"}</label>
                     <input className={styles.input} type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} maxLength={32}/>

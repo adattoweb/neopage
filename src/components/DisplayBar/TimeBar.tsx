@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "./DisplayBar.module.css";
 
-export default function HelloBar() {
+export default function TimeBar() {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {

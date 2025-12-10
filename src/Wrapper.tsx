@@ -1,16 +1,13 @@
-import { useContext } from "react";
 import styles from "./App.module.css"
-import { ModalsContext } from "./context/contexts";
+import { useModalsStore } from "./store/useModalStore";
 
 interface WrapperProps {
     children: React.ReactNode
 }
 
 export default function Wrapper({ children }: WrapperProps){
-    const context = useContext(ModalsContext);
-    if (!context ) throw new Error("Context is null");
-    
-    const { modals, setModals } = context;
+    const modals = useModalsStore(state => state.modals)
+    const setModals = useModalsStore(state => state.setModals)
 
     function handleRightClick(e: React.MouseEvent<HTMLDivElement>){
         e.preventDefault()

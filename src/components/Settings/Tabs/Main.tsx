@@ -1,25 +1,36 @@
+import { useLanguageStore } from "@/store/useLanguageStore"
 import styles from "../Settings.module.css"
 import { NavBlock, NavInput, NavRange } from "./Constructor"
 import Dropdown from "@/components/Dropdown/Dropdown"
-import { useContext, useState } from "react"
+import { useEffect, useState } from "react"
+import { useNameStore } from "@/store/useNameStore"
+import { useDisplayState } from "@/store/useDisplayStore"
 
-import { LanguageContext, SettingsContext } from "@/context/contexts"
+export default function Main(){
+    const lang = useLanguageStore(state => state.lang);
+    const setLang = useLanguageStore(state => state.setLang);
 
-interface MainProps {
-    display: string
-    setDisplay: React.Dispatch<React.SetStateAction<string>>
-    name: string
-    setName: React.Dispatch<React.SetStateAction<string>>
-}
+    const name = useNameStore(state => state.name)
+    const setName = useNameStore(state => state.setName)
 
-export default function Main({ display, setDisplay, name, setName }:MainProps){
+    const display = useDisplayState(state => state.display)
+    const setDisplay = useDisplayState(state => state.setDisplay)
 
-    const context = useContext(SettingsContext);
-    const langContext = useContext(LanguageContext);
-    if (!context || !langContext) throw new Error("Context is null");
+    const [blur, setBlur] = useState(localStorage.getItem("neopage-blur")!)
+    const [transparency, setTransparency] = useState(localStorage.getItem("neopage-transparency")!)
+    const [radius, setRadius] = useState(localStorage.getItem("neopage-radius")!)
 
-    const { blur, setBlur, transparency, setTransparency, radius, setRadius} = context;
-    const { lang, setLang } = langContext;
+    useEffect(() => {
+        document.documentElement.style.setProperty('--blur', `${blur}px`);
+    }, [blur])
+    
+    useEffect(() => {
+    document.documentElement.style.setProperty('--alpha', `${+transparency / 100}`);
+    }, [transparency])
+    
+    useEffect(() => {
+    document.documentElement.style.setProperty('--radius', `${radius}px`);
+    }, [radius])
 
     const [theme, setTheme] = useState(localStorage.getItem("neopage-theme")!)
     const [quote, setQuote] = useState(localStorage.getItem("neopage-quote")!)

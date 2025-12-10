@@ -1,12 +1,9 @@
-import { useContext } from "react";
+import { useLanguageStore } from "@/store/useLanguageStore";
 import styles from "../Settings.module.css"
-import { LanguageContext } from "@/context/contexts";
 
 export default function Information() {
 
-    const langContext = useContext(LanguageContext);
-    if (!langContext) throw new Error("Context is null");
-    const { lang } = langContext;
+    const lang = useLanguageStore(state => state.lang);
     return (
         <div className={`${styles.list} ${styles.information}`} id="list">
             <h3 className={styles.header}>

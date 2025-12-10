@@ -1,13 +1,13 @@
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion"
 import styles from "./Modal.module.css"
-import type { Pos } from "@/App";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { readLocal } from "@/helpers/readLocal";
-import { LanguageContext, ModalsContext } from "@/context/contexts";
+import { useLanguageStore } from "@/store/useLanguageStore";
+import { useModalsStore } from "@/store/useModalStore";
+import { usePosStore } from "@/store/usePosStore";
 
 interface ModalProps {
-    pos: React.RefObject<Pos>
     selectedName: string
     setSelectedName: React.Dispatch<React.SetStateAction<string>>
     setPins: React.Dispatch<React.SetStateAction<PinObject[]>>
@@ -18,18 +18,15 @@ export interface PinObject {
     link: string
 }
 
-export default function EditModal({ pos, selectedName, setSelectedName, setPins }:ModalProps){
-    const langContext = useContext(LanguageContext);
-    if (!langContext) throw new Error("LanguageContext is null");
-    const { lang } = langContext;
+export default function EditModal({ selectedName, setSelectedName, setPins }:ModalProps){
 
-    const context = useContext(ModalsContext);
-    if (!context ) throw new Error("Context is null");
-    const { modals, setModals } = context;
+    const modals = useModalsStore(state => state.modals)
+    const setModals = useModalsStore(state => state.setModals)
+    const lang = useLanguageStore(state => state.lang);
+    const posStore = usePosStore.getState()
 
     const pins = readLocal("neopage-pins")
     let pin = pins.find((el:PinObject) => el.name === selectedName)
-    console.log(pin)
     const index = pins.findIndex((el:PinObject) => el.name === selectedName)
     if(pin === undefined) pin = {
         name: "",
@@ -43,9 +40,8 @@ export default function EditModal({ pos, selectedName, setSelectedName, setPins 
         setLink(pin.link)
     }, [selectedName])
 
-    const [actualPos, setActualPos] = useState(pos.current)
-    useEffect(() => {
-        setActualPos({x: pos.current.x, y: pos.current.y})
+    useEffect(() => { // ТРЕБА БУДЕ ПЕРЕГЛЯНУТИ
+        posStore.setPos({x: posStore.pos.x, y: posStore.pos.y})
     }, [modals])
 
     function editPin(newName:string, newLink:string){
@@ -76,7 +72,7 @@ export default function EditModal({ pos, selectedName, setSelectedName, setPins 
 
     return createPortal(
         <AnimatePresence mode="wait">
-            {modals.isEditOpen && <motion.div key="modal" className={`${styles.modal} back-alpha`} style={{top: actualPos.y, left: actualPos.x}} initial={{opacity: 0, scale: 0.5}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0.8}} onClick={(e) => e.stopPropagation()}>
+            {modals.isEditOpen && <motion.div key="modal" className={`${styles.modal} back-alpha`} style={{top:posStore.pos.y, left:posStore.pos.x}} initial={{opacity: 0, scale: 0.5}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0.8}} onClick={(e) => e.stopPropagation()}>
                 <h2 className={styles.header}>{selectedName}</h2>
                 <div className={styles.wrapper}>
                     <label className={styles.input__label} htmlFor="name">{lang === "en" ? "Name" : "Назва"}</label>

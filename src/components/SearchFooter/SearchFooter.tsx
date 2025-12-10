@@ -1,8 +1,7 @@
 import styles from "./SearchFooter.module.css"
 import Pin from "./Pin"
 import type { PinObject } from "../Settings/Tabs/Pinned"
-import { ModalsContext } from "@/context/contexts"
-import { useContext } from "react"
+import { useModalsStore } from "@/store/useModalStore"
 
 interface FooterProps {
     pins: PinObject[]
@@ -10,10 +9,8 @@ interface FooterProps {
 }
 
 export default function SearchFooter({ pins, setSelectedName }:FooterProps){
-    const context = useContext(ModalsContext);
-    if (!context) throw new Error("Context is null");
-
-    const { modals, setModals } = context;
+    const modals = useModalsStore(state => state.modals)
+    const setModals = useModalsStore(state => state.setModals)
     function handleRightClick(e: React.MouseEvent<HTMLAnchorElement>, name:string){
         e.preventDefault()
         e.stopPropagation()
