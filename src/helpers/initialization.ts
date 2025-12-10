@@ -14,7 +14,7 @@ export function initialization(){
         "neopage-radius": "24",
         "neopage-search-engine": "google",
         "neopage-display": "greetings",
-        "neopage-background": `/themes/themes/theme1.jpg`,
+        "neopage-background": `/neopage/themes/themes/theme1.jpg`,
         "neopage-themes": "[]",
       } 
     
