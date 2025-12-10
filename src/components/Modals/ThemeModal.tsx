@@ -6,18 +6,14 @@ import { regex } from "@/helpers/HTTPRegex";
 import { useLanguageStore } from "@/store/useLanguageStore";
 import { useModalsStore } from "@/store/useModalStore";
 import { usePosStore } from "@/store/usePosStore";
-
-interface ModalProps {
-    themes: string[]
-    setThemes: React.Dispatch<React.SetStateAction<string[]>>
-}
+import { useThemesStore } from "@/store/useThemesStore";
 
 interface Error {
     text: string
     ID: number
 }
 
-export default function ThemeModal({ themes, setThemes }:ModalProps){
+export default function ThemeModal(){
     const [link, setLink] = useState("")
     const [error, setError] = useState<Error>({text: "", ID: 0})
 
@@ -25,6 +21,8 @@ export default function ThemeModal({ themes, setThemes }:ModalProps){
     const setModals = useModalsStore(state => state.setModals)
     const lang = useLanguageStore(state => state.lang);
     const posStore = usePosStore.getState()
+    const themes = useThemesStore(state => state.themes)
+    const setThemes = useThemesStore(state => state.setThemes)
 
     useEffect(() => { // ТРЕБА БУДЕ ПЕРЕГЛЯНУТИ
         posStore.setPos({x: posStore.pos.x, y: posStore.pos.y})

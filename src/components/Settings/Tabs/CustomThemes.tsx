@@ -3,6 +3,7 @@ import styles from "../Settings.module.css"
 import { useState } from "react"
 import Add from "./Add"
 import { useModalsStore } from "@/store/useModalStore"
+import { useThemesStore } from "@/store/useThemesStore"
 
 export interface Theme {
     src: string
@@ -13,12 +14,7 @@ interface ThemeProps extends Theme {
     selectedIndex: number
     setSelectedIndex: React.Dispatch<React.SetStateAction<number>>
     themes: string[]
-    setThemes: React.Dispatch<React.SetStateAction<string[]>>
-}
-
-interface CustomProps {
-    themes: string[]
-    setThemes: React.Dispatch<React.SetStateAction<string[]>>
+    setThemes: (value: string[]) => void
 }
   
 function ThemesItem({ src, index, selectedIndex, setSelectedIndex, themes, setThemes }:ThemeProps){
@@ -39,7 +35,10 @@ function ThemesItem({ src, index, selectedIndex, setSelectedIndex, themes, setTh
     )
 }
 
-export default function CustomThemes({ themes, setThemes }:CustomProps){
+export default function CustomThemes(){
+    const themes = useThemesStore(state => state.themes)
+    const setThemes = useThemesStore(state => state.setThemes)
+
     const [selectedIndex, setSelectedIndex] = useState(themes.findIndex(el => el === localStorage.getItem("neopage-background")))
 
     const modals = useModalsStore(state => state.modals)

@@ -5,16 +5,8 @@ import NavItem from "./NavItem"
 import NavProvider from "./NavProvider"
 
 import { motion } from "framer-motion"
-import type { PinObject } from "./Tabs/Pinned"
 import { useLanguageStore } from "@/store/useLanguageStore"
 import { useSettingsOpenStore } from "@/store/useSettingsOpen"
-
-interface SettingsProps {
-    pins: PinObject[]
-    setSelectedName: React.Dispatch<React.SetStateAction<string>>
-    themes: string[]
-    setThemes: React.Dispatch<React.SetStateAction<string[]>>
-}
 
 export interface NavItemObject {
     text: string
@@ -26,7 +18,7 @@ export interface SelectedObject {
     index: number
 }
 
-export default function Settings({ pins, setSelectedName, themes, setThemes }:SettingsProps){
+export default function Settings(){
     const [selected, setSelected] = useState<SelectedObject>({name: "global", index: 0})
 
     const lang = useLanguageStore(state => state.lang);
@@ -72,7 +64,7 @@ export default function Settings({ pins, setSelectedName, themes, setThemes }:Se
                     {navArray.map((el, index) => <NavItem key={el.text} text={el.text} select={{name: el.select, index: index}} selected={selected} setSelected={setSelected} length={navArray.length}/>)}
                 </div>
             </div>
-            <NavProvider selected={selected} pins={pins} setSelectedName={setSelectedName} themes={themes} setThemes={setThemes}/>
+            <NavProvider selected={selected}/>
         </motion.div>
     )
 }

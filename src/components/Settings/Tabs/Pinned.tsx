@@ -2,20 +2,20 @@ import Pin from "./Pin"
 import Add from "./Add"
 import styles from "../Settings.module.css"
 import { useModalsStore } from "@/store/useModalStore"
-
-interface PinProps {
-    pins: PinObject[]
-    setSelectedName: React.Dispatch<React.SetStateAction<string>>
-}
+import { usePinsStore } from "@/store/usePinsStore"
+import { useSelectedNameStore } from "@/store/useSelectedNameStore"
 
 export interface PinObject {
     name: string
     link: string
 }
 
-export default function Pinned({ pins, setSelectedName }:PinProps){
+export default function Pinned(){
     const modals = useModalsStore(state => state.modals)
     const setModals = useModalsStore(state => state.setModals)
+    const pins = usePinsStore(state => state.pins)
+    const setSelectedName = useSelectedNameStore(state => state.setSelectedName)
+
     function handleRightClick(e: React.MouseEvent<HTMLParagraphElement>, name:string){
         e.preventDefault()
         e.stopPropagation()

@@ -2,30 +2,26 @@ import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion"
 import styles from "./Modal.module.css"
 import { useEffect, useState } from "react";
-import { readLocal } from "@/helpers/readLocal";
 import { useLanguageStore } from "@/store/useLanguageStore";
 import { useModalsStore } from "@/store/useModalStore";
 import { usePosStore } from "@/store/usePosStore";
+import { usePinsStore } from "@/store/usePinsStore";
 
-interface ModalProps {
-    selectedName: string
-    setSelectedName: React.Dispatch<React.SetStateAction<string>>
-    setPins: React.Dispatch<React.SetStateAction<PinObject[]>>
-}
+import type { PinObject } from "../Settings/Tabs/Pinned";
+import { useSelectedNameStore } from "@/store/useSelectedNameStore";
 
-export interface PinObject {
-    name: string
-    link: string
-}
-
-export default function EditModal({ selectedName, setSelectedName, setPins }:ModalProps){
+export default function EditModal(){
 
     const modals = useModalsStore(state => state.modals)
     const setModals = useModalsStore(state => state.setModals)
     const lang = useLanguageStore(state => state.lang);
     const posStore = usePosStore.getState()
+    const pins = usePinsStore(state => state.pins)
+    const setPins = usePinsStore(state => state.setPins)
+    
+    const selectedName = useSelectedNameStore(state => state.selectedName)
+    const setSelectedName = useSelectedNameStore(state => state.setSelectedName)
 
-    const pins = readLocal("neopage-pins")
     let pin = pins.find((el:PinObject) => el.name === selectedName)
     const index = pins.findIndex((el:PinObject) => el.name === selectedName)
     if(pin === undefined) pin = {
@@ -59,7 +55,8 @@ export default function EditModal({ selectedName, setSelectedName, setPins }:Mod
     }
 
     function deletePin(){
-        pins.splice(index, 1)
+        const newPins: PinObject[] = [...pins]
+        newPins.splice(index, 1)
 
         pin.name = ""
         pin.link = ""

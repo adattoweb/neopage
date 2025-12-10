@@ -35,7 +35,7 @@ export default function Main(){
     const [theme, setTheme] = useState(localStorage.getItem("neopage-theme")!)
     const [quote, setQuote] = useState(localStorage.getItem("neopage-quote")!)
     const [searchEngine, setSearchEngine] = useState(localStorage.getItem("neopage-search-engine")!)
-    function switchParametr(setter: React.Dispatch<React.SetStateAction<string>>, value: string, key: string, func?: (value: string) => void){ // додати перевірку!
+    function switchParametr(setter: any, value: string, key: string, func?: (value: string) => void){ // додати перевірку!
         value = String(value)
         setter(value)
         localStorage.setItem(key, value)

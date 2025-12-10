@@ -2,15 +2,15 @@ import styles from "./SearchFooter.module.css"
 import Pin from "./Pin"
 import type { PinObject } from "../Settings/Tabs/Pinned"
 import { useModalsStore } from "@/store/useModalStore"
+import { usePinsStore } from "@/store/usePinsStore"
+import { useSelectedNameStore } from "@/store/useSelectedNameStore"
 
-interface FooterProps {
-    pins: PinObject[]
-    setSelectedName: React.Dispatch<React.SetStateAction<string>>
-}
-
-export default function SearchFooter({ pins, setSelectedName }:FooterProps){
+export default function SearchFooter(){
     const modals = useModalsStore(state => state.modals)
     const setModals = useModalsStore(state => state.setModals)
+    const pins = usePinsStore(state => state.pins)
+    const setSelectedName = useSelectedNameStore(state => state.setSelectedName)
+    
     function handleRightClick(e: React.MouseEvent<HTMLAnchorElement>, name:string){
         e.preventDefault()
         e.stopPropagation()

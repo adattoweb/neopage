@@ -2,23 +2,19 @@ import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion"
 import styles from "./Modal.module.css"
 import { useEffect, useState } from "react";
-import { readLocal } from "@/helpers/readLocal";
 import type { PinObject } from "../Settings/Tabs/Pinned";
 import { regex } from "@/helpers/HTTPRegex";
 import { useModalsStore } from "@/store/useModalStore";
 import { useLanguageStore } from "@/store/useLanguageStore";
 import { usePosStore } from "@/store/usePosStore";
-
-interface ModalProps {
-    setPins: React.Dispatch<React.SetStateAction<PinObject[]>>
-}
+import { usePinsStore } from "@/store/usePinsStore";
 
 interface Error {
     text: string
     ID: number
 }
 
-export default function CreateModal({ setPins }:ModalProps){
+export default function CreateModal(){
     const [name, setName] = useState("")
     const [link, setLink] = useState("")
     const [error, setError] = useState<Error>({text: "", ID: 0})
@@ -27,6 +23,9 @@ export default function CreateModal({ setPins }:ModalProps){
     const setModals = useModalsStore(state => state.setModals)
     const lang = useLanguageStore(state => state.lang);
     const posStore = usePosStore.getState()
+
+    const pins = usePinsStore(state => state.pins)
+    const setPins = usePinsStore(state => state.setPins)
 
     useEffect(() => { // ТРЕБА БУДЕ ПЕРЕГЛЯНУТИ
         posStore.setPos({x: posStore.pos.x, y: posStore.pos.y})
@@ -41,7 +40,7 @@ export default function CreateModal({ setPins }:ModalProps){
     }
 
     function addPin(){
-        const pinsArray = readLocal("neopage-pins")
+        const pinsArray = [...pins]
 
         if(name.length === 0) {
             setError({text: lang === "en" ? "Enter the field" : "Заповніть поле", ID: 1})

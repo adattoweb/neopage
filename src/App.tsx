@@ -11,7 +11,6 @@ import CreateModal from "./components/Modals/CreateModal"
 
 import { useState, useEffect, useRef } from "react"
 import { readLocal } from "./helpers/readLocal"
-import type { PinObject } from "./components/Settings/Tabs/Pinned"
 import Quotes from "./components/Quotes/Quotes"
 import { initialization } from "./helpers/initialization"
 import Wrapper from "./Wrapper"
@@ -31,11 +30,6 @@ export default function App() {
     }
     document.documentElement.style.setProperty('--background', `url("${localStorage.getItem("neopage-background")}")`);
   }, [])
-
-  const [selectedName, setSelectedName] = useState("")
-
-  const [pins, setPins] = useState<PinObject[]>(readLocal("neopage-pins"))
-  const [themes, setThemes] = useState<string[]>(readLocal('neopage-themes'))
   
   useEffect(() => {
     const handleMove = (e: MouseEvent) => {
@@ -52,17 +46,17 @@ export default function App() {
 
   return (
     <>
-      <EditModal selectedName={selectedName} setSelectedName={setSelectedName} setPins={setPins} />
-      <CreateModal setPins={setPins} />
-      <ThemeModal themes={themes} setThemes={setThemes} />
+      <EditModal />
+      <CreateModal />
+      <ThemeModal/>
       <Wrapper>
         {isQuoteEnabled && <Quotes />}
         <div className={styles.search}>
           <DisplayBar />
           <SearchBar />
-          <SearchFooter pins={pins} setSelectedName={setSelectedName} />
+          <SearchFooter />
           <Modal />
-          <Settings pins={pins} setSelectedName={setSelectedName} themes={themes} setThemes={setThemes} />
+          <Settings/>
         </div>
       </Wrapper>
     </>
