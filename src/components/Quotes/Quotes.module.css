@@ -1,7 +1,16 @@
 .quote{
     position: absolute;
+    margin-left: 40px;
     right: 40px;
     top: 20px;
     font-weight: 600;
     font-size: 24px;
+    border-radius: var(--radius, 24);
+    padding: 4px 8px;
+    text-align: center;
+}
+@media screen and (max-width: 1000px){
+    .quote{
+        font-size: 20px;
+    }
 }

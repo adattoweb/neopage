@@ -5,6 +5,7 @@ import Dropdown from "@/components/Dropdown/Dropdown"
 import { useEffect, useState } from "react"
 import { useNameStore } from "@/store/useNameStore"
 import { useDisplayState } from "@/store/useDisplayStore"
+import { useQuoteState } from "@/store/useQuoteStore"
 
 export default function Main(){
     const lang = useLanguageStore(state => state.lang);
@@ -33,8 +34,11 @@ export default function Main(){
     }, [radius])
 
     const [theme, setTheme] = useState(localStorage.getItem("neopage-theme")!)
-    const [quote, setQuote] = useState(localStorage.getItem("neopage-quote")!)
     const [searchEngine, setSearchEngine] = useState(localStorage.getItem("neopage-search-engine")!)
+
+    const quote = useQuoteState(state => state.quote)
+    const setQuote = useQuoteState(state => state.setQuote)
+
     function switchParametr(setter: any, value: string, key: string, func?: (value: string) => void){ // додати перевірку!
         value = String(value)
         setter(value)
