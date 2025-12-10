@@ -58,8 +58,8 @@ export default function EditModal(){
         const newPins: PinObject[] = [...pins]
         newPins.splice(index, 1)
 
-        pin.name = ""
-        pin.link = ""
+        pin!.name = ""
+        pin!.link = ""
 
         setModals({ isContextOpen: false, isEditOpen: false, isCreateOpen: false, isThemeCreateOpen: false, isThemeEditOpen: false })
         setSelectedName("")
