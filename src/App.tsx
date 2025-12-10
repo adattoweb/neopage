@@ -15,6 +15,7 @@ import { initialization } from "./helpers/initialization"
 import Wrapper from "./Wrapper"
 import ThemeModal from "./components/Modals/ThemeModal"
 import { usePosStore } from "./store/usePosStore"
+import { useModalsStore } from "./store/useModalStore"
 
 export default function App() {
   initialization()
@@ -32,14 +33,28 @@ export default function App() {
     document.documentElement.style.setProperty('--alpha', `${+localStorage.getItem("neopage-transparency")! / 100}`);
     document.documentElement.style.setProperty('--radius', `${localStorage.getItem("neopage-radius")!}px`);
   }, [])
-  
+
+
+  const modals = useModalsStore(state => state.modals)
+
   useEffect(() => {
+    const isAnyModalOpen =
+      modals.isContextOpen ||
+      modals.isCreateOpen ||
+      modals.isEditOpen ||
+      modals.isThemeCreateOpen ||
+      modals.isThemeEditOpen;
+  
+    if (isAnyModalOpen) return; // Не вішаємо mousemove, якщо хоч одна модалка відкрита
+  
     const handleMove = (e: MouseEvent) => {
       usePosStore.getState().setPos({ x: e.clientX, y: e.clientY });
     };
+  
     window.addEventListener("mousemove", handleMove);
     return () => window.removeEventListener("mousemove", handleMove);
-  }, []);
+  }, [modals]);
+  
   
   
 
