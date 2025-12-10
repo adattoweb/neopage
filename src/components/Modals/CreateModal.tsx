@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion"
 import styles from "./Modal.module.css"
-import type { Modals, Pos } from "@/App";
+import type { Pos } from "@/App";
 import { useContext, useEffect, useState } from "react";
 import { readLocal } from "@/helpers/readLocal";
 import type { PinObject } from "../Settings/Tabs/Pinned";
