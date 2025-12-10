@@ -1,75 +1,25 @@
-# React + TypeScript + Vite
+# Neopage
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## English
 
-Currently, two official plugins are available:
+### Information
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#### About Neopage
+Neopage is a fully customizable home page. You can adjust the appearance including the background, theme, background transparency, blur, and corner rounding. You can also easily choose a search engine (Google, Bing, DuckDuckGo, Yahoo!, Qwant).
 
-## React Compiler
+#### How to set a custom background
+To set your own background image, first copy the link to the image (or obtain it by uploading the image to any image hosting service, for example Imgur, and then copying the link). Then open the Custom Themes tab, click the plus icon, paste the link, and click Add. After adding, select the image.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
 
-Note: This will impact Vite dev & build performances.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Українською
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Інформація
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+#### Про Neopage
+Neopage – це кастомізована домашня сторінка, де можна повністю налаштувати зовнішній вигляд: від фону та теми до прозорості, розмиття фону й заокруглення країв. Також без проблем можна обрати пошуковий рушій (Google, Bing, DuckDuckGo, Yahoo!, Qwant).
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+#### Як встановити власне фонове зображення
+Щоб встановити власне фонове зображення, спочатку скопіюйте посилання на нього (або отримайте це посилання, завантаживши зображення на будь-який фотохостинг, наприклад Imgur, а потім скопіювавши посилання). Після цього відкрийте вкладку «Кастомні теми», натисніть на плюс, вставте посилання та натисніть «Додати». Після додавання оберіть зображення.
