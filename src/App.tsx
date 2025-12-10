@@ -28,6 +28,9 @@ export default function App() {
       document.getElementById("root")?.classList.add("dark")
     }
     document.documentElement.style.setProperty('--background', `url("${localStorage.getItem("neopage-background")}")`);
+    document.documentElement.style.setProperty('--blur', `${localStorage.getItem("neopage-blur")!}px`);
+    document.documentElement.style.setProperty('--alpha', `${+localStorage.getItem("neopage-transparency")! / 100}`);
+    document.documentElement.style.setProperty('--radius', `${localStorage.getItem("neopage-radius")!}px`);
   }, [])
   
   useEffect(() => {

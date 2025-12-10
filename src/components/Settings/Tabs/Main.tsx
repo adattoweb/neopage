@@ -25,11 +25,11 @@ export default function Main(){
     }, [blur])
     
     useEffect(() => {
-    document.documentElement.style.setProperty('--alpha', `${+transparency / 100}`);
+        document.documentElement.style.setProperty('--alpha', `${+transparency / 100}`);
     }, [transparency])
     
     useEffect(() => {
-    document.documentElement.style.setProperty('--radius', `${radius}px`);
+        document.documentElement.style.setProperty('--radius', `${radius}px`);
     }, [radius])
 
     const [theme, setTheme] = useState(localStorage.getItem("neopage-theme")!)
