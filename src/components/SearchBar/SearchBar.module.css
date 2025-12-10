@@ -10,6 +10,7 @@
 }
 @media screen and (max-width: 1600px){
     .field {
+        height: 90px;
         width: 800px;
     }
 }
@@ -17,7 +18,7 @@
 @media screen and (max-width: 1300px){
     .field {
         width: 700px;
-        height: 90px;
+        height: 85px;
         padding-left: 36px;
         font-size: 32px;
     }

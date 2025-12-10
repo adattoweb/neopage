@@ -1,7 +1,8 @@
 .hello{
     font-weight: 600;
     font-size: 90px;
-    margin-bottom: 40px;
+    margin-bottom: 35px;
+    text-align: center;
 }
 
 .time{
@@ -15,7 +16,8 @@
         font-size: 120px;
     }
     .hello{
-        font-size: 75px;
+        font-size: 70px;
+        margin-bottom: 25px;
     }
 }
 
@@ -24,7 +26,8 @@
         font-size: 110px;
     }
     .hello{
-        font-size: 70px;
+        font-size: 65px;
+        margin-bottom: 15px;
     }
 }
 
@@ -33,7 +36,7 @@
         font-size: 90px;
     }
     .hello{
-        font-size: 60px;
+        font-size: 55px;
     }
 }
 @media screen and (max-width: 450px){
@@ -41,7 +44,7 @@
         font-size: 70px;
     }
     .hello{
-        font-size: 50px;
+        font-size: 40px;
     }
 }
 
@@ -50,6 +53,6 @@
         font-size: 60px;
     }
     .hello{
-        font-size: 45px;
+        font-size: 35px;
     }
 }

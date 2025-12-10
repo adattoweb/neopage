@@ -71,7 +71,7 @@ export default function Main(){
                 <Dropdown selected={display} setSelected={(value: string) => switchParametr(setDisplay, value, "neopage-display")} array={[[lang === "en" ? "Greetings" : "Привітання", "greetings"], [lang === "en" ? "Time" : "Час", "time"], [lang === "en" ? "Nothing" : "Нічого", "nothing"]]} minWidth={window.innerWidth > 1000 ? 130 : 80}/>
             </NavBlock>
             <NavBlock name={lang === "en" ? "Nickname" : "Нікнейм"}>
-                <NavInput value={name} onChange={e => switchParametr(setName, e.target.value, "neopage-name")} maxLength={32}/>
+                <NavInput value={name} onChange={e => switchParametr(setName, e.target.value, "neopage-name")} maxLength={20}/>
             </NavBlock>
             <NavBlock name={lang === "en" ? "Background blur" : "Розмиття фону"}>
                 <NavRange value={+blur} onChange={e => switchParametr(setBlur, e.target.value, "neopage-blur")} min={0} max={80}/>

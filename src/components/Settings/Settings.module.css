@@ -27,6 +27,7 @@
 .menu{
     height: 100%;
     width: 250px;
+    border-radius: calc(var(--radius, 24) * 2.5) 0 0 calc(var(--radius, 24) * 2.5);
 }
 .cross{
     width: 45px;
@@ -50,6 +51,7 @@
 
 .content{
     flex: 1;
+    border-radius: calc(var(--radius, 24) * 2.5) 0 0 calc(var(--radius, 24) * 2.5);
 }
 .list{
     display: flex;

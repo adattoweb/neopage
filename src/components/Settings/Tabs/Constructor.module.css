@@ -21,6 +21,7 @@
 
 .slider {
     -webkit-appearance: none;
+    appearance: none;
     width: 150px;
     height: 6px;
     background-color: rgba(255,255,255,0.05);
@@ -31,13 +32,24 @@
   
   /* Лінія для Firefox */
   .slider::-moz-range-track {
+    -webkit-appearance: none;
+    appearance: none;
     background-color: rgba(255,255,255,0.05);
     height: 4px;
     border-radius: 4px;
   }
   
   /* Кружок (ручка) */
-  .slider::-webkit-slider-thumb, .slider::-moz-range-thumb {
+  .slider::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border: none;
+  }
+
+  .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 22px;
@@ -45,8 +57,6 @@
     border-radius: 50%;
     background: rgba(255,255,255,0.1);
     backdrop-filter: blur(10px);
-    cursor: pointer;
-    transition: background 0.2s;
     border: none;
   }
   
