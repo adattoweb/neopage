@@ -24,6 +24,7 @@
     padding: 12px 18px;
     border-radius: calc(var(--radius, 24) - 6px);
     text-decoration: none;
+    user-select: none;
 }
 .item:hover {
     background-color: rgba(255, 255, 255, 0.07);

@@ -96,4 +96,14 @@
   .slider{
     width: 80px;
   }
+  .slider::-webkit-slider-thumb, .slider::-moz-range-thumb{
+    width: 16px;
+    height: 16px;
+  }
+}
+@media screen and (max-width: 500px){
+  .slider::-webkit-slider-thumb, .slider::-moz-range-thumb{
+    width: 14px;
+    height: 14px;
+  }
 }

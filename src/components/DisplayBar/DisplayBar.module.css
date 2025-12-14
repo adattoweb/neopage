@@ -3,6 +3,7 @@
     font-size: 90px;
     margin-bottom: 30px;
     text-align: center;
+    user-select: none;
 }
 
 .time{
