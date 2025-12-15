@@ -1,13 +1,14 @@
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion"
 import styles from "./Modal.module.css"
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { PinObject } from "../Settings/Tabs/Pinned";
 import { regex } from "@/helpers/HTTPRegex";
 import { useModalsStore } from "@/store/useModalsStore";
 import { useLanguageStore } from "@/store/useLanguageStore";
 import { usePosStore } from "@/store/usePosStore";
 import { usePinsStore } from "@/store/usePinsStore";
+import { useModal } from "@/hooks/useModal";
 
 interface Error {
     text: string
@@ -71,10 +72,9 @@ export default function CreateModal(){
         setError({text: "", ID: 0})
     }
 
-    const modal = {
-        width: 250,
-        height: 220,
-    }
+    const modalRef = useRef<HTMLDivElement | null>(null)
+
+    const modal = useModal(modalRef)
 
     let isLeft = false;
     let isTop = false;
@@ -83,7 +83,7 @@ export default function CreateModal(){
 
     return createPortal(
         <AnimatePresence mode="wait">
-            {modals.isCreateOpen && <motion.div key="modal" className={`${styles.modal} back-alpha`} style={{top: isTop ? posStore.pos.y - modal.height : posStore.pos.y, left: isLeft ? posStore.pos.x - modal.width : posStore.pos.x}} initial={{opacity: 0, scale: 0.5}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0.8}} onClick={(e) => e.stopPropagation()}>
+            {modals.isCreateOpen && <motion.div key="modal" ref={modalRef} className={`${styles.modal} back-alpha`} style={{top: isTop ? posStore.pos.y - modal.height : posStore.pos.y, left: isLeft ? posStore.pos.x - modal.width : posStore.pos.x}} initial={{opacity: 0, scale: 0.5}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0.8}} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.wrapper}>
                     <label className={styles.input__label} htmlFor="name">{lang === "en" ? "Name" : "Назва"}</label>
                     <input className={styles.input} type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} maxLength={32}/>

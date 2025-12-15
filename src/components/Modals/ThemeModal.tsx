@@ -1,12 +1,13 @@
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion"
 import styles from "./Modal.module.css"
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { regex } from "@/helpers/HTTPRegex";
 import { useLanguageStore } from "@/store/useLanguageStore";
 import { useModalsStore } from "@/store/useModalsStore";
 import { usePosStore } from "@/store/usePosStore";
 import { useThemesStore } from "@/store/useThemesStore";
+import { useModal } from "@/hooks/useModal";
 
 interface Error {
     text: string
@@ -54,10 +55,9 @@ export default function ThemeModal(){
         setError({text: "", ID: 0})
     }
 
-    const modal = {
-        width: 250,
-        height: 120,
-    }
+    const modalRef = useRef<HTMLDivElement | null>(null)
+
+    const modal = useModal(modalRef)
 
     let isLeft = false;
     let isTop = false;
@@ -66,7 +66,7 @@ export default function ThemeModal(){
 
     return createPortal(
         <AnimatePresence mode="wait">
-            {modals.isThemeCreateOpen && <motion.div key="modal" className={`${styles.modal} back-alpha`} style={{top: isTop ? posStore.pos.y - modal.height : posStore.pos.y, left: isLeft ? posStore.pos.x - modal.width : posStore.pos.x}} initial={{opacity: 0, scale: 0.5}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0.8}} onClick={(e) => e.stopPropagation()}>
+            {modals.isThemeCreateOpen && <motion.div key="modal" ref={modalRef} className={`${styles.modal} back-alpha`} style={{top: isTop ? posStore.pos.y - modal.height : posStore.pos.y, left: isLeft ? posStore.pos.x - modal.width : posStore.pos.x}} initial={{opacity: 0, scale: 0.5}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0.8}} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.wrapper}>
                     <label className={styles.input__label} htmlFor="link">{lang === "en" ? "Link" : "Посилання"}</label>
                     <input className={styles.input} type="text" id="link" value={link} onChange={(e) => setLink(e.target.value)}/>

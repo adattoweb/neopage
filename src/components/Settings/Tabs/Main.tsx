@@ -39,7 +39,7 @@ export default function Main(){
     const quote = useQuoteState(state => state.quote)
     const setQuote = useQuoteState(state => state.setQuote)
 
-    function switchParametr(setter: any, value: string, key: string, func?: (value: string) => void){ // додати перевірку!
+    function switchParametr(setter: (value: string) => void, value: string, key: string, func?: (value: string) => void){ // додати перевірку!
         value = String(value)
         setter(value)
         localStorage.setItem(key, value)

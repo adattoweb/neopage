@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion"
 import styles from "./Modal.module.css"
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLanguageStore } from "@/store/useLanguageStore";
 import { useModalsStore } from "@/store/useModalsStore";
 import { usePosStore } from "@/store/usePosStore";
@@ -9,6 +9,7 @@ import { usePinsStore } from "@/store/usePinsStore";
 
 import type { PinObject } from "../Settings/Tabs/Pinned";
 import { useSelectedNameStore } from "@/store/useSelectedNameStore";
+import { useModal } from "@/hooks/useModal";
 
 export default function EditModal(){
 
@@ -63,10 +64,9 @@ export default function EditModal(){
         localStorage.setItem("neopage-pins", JSON.stringify(pins))
     }
 
-    const modal = {
-        width: 280,
-        height: 220,
-    }
+    const modalRef = useRef<HTMLDivElement | null>(null)
+
+    const modal = useModal(modalRef)
 
     let isLeft = false;
     let isTop = false;
@@ -75,7 +75,7 @@ export default function EditModal(){
 
     return createPortal(
         <AnimatePresence mode="wait">
-            {modals.isEditOpen && <motion.div key="modal" className={`${styles.modal} back-alpha`} style={{top: isTop ? posStore.pos.y - modal.height : posStore.pos.y, left: isLeft ? posStore.pos.x - modal.width : posStore.pos.x}} initial={{opacity: 0, scale: 0.5}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0.8}} onClick={(e) => e.stopPropagation()}>
+            {modals.isEditOpen && <motion.div key="modal" ref={modalRef} className={`${styles.modal} back-alpha`} style={{top: isTop ? posStore.pos.y - modal.height : posStore.pos.y, left: isLeft ? posStore.pos.x - modal.width : posStore.pos.x}} initial={{opacity: 0, scale: 0.5}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0.8}} onClick={(e) => e.stopPropagation()}>
                 <h2 className={styles.header}>{selectedName}</h2>
                 <div className={styles.wrapper}>
                     <label className={styles.input__label} htmlFor="name">{lang === "en" ? "Name" : "Назва"}</label>

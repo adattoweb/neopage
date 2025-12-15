@@ -52,11 +52,6 @@ export default function App() {
     window.addEventListener("mousemove", handleMove);
     return () => window.removeEventListener("mousemove", handleMove);
   }, [modals]);
-  
-  
-  
-
-  const isQuoteEnabled = localStorage.getItem("neopage-quote") === "true"
 
 
   return (
@@ -66,7 +61,7 @@ export default function App() {
       <ThemeModal/>
       <ThemeEdit/>
       <Wrapper>
-        {isQuoteEnabled && <Quotes />}
+        <Quotes />
         <div className={styles.search}>
           <DisplayBar />
           <SearchBar />

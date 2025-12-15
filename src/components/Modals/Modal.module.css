@@ -8,13 +8,14 @@
 }
 .modal{
     position: absolute;
-    border-radius: 30px;
+    border-radius: calc(var(--radius, 24) - 6px);
     display: flex;
     flex-direction: column;
     padding: 12px 18px;
     gap: 8px;
-    width: 250px;
+    width: 270px;
     z-index: 1000;
+    box-sizing: border-box;
 }
 .item {
     font-size: 18px;
@@ -49,7 +50,7 @@
     outline: none;
     border: none;
     padding: 6px 5px 6px 10px;
-    border-radius: 8px;
+    border-radius: calc(var(--radius, 24) / 2);
     font-size: 14px;
     background-color: rgba(255,255,255,0.05);
 }
@@ -70,4 +71,53 @@
     background: linear-gradient(90deg, #ff4949, #d57e7e);
     -webkit-background-clip: text; /* для Chrome/Safari */
     -webkit-text-fill-color: transparent; /* приховати колір тексту */
+}
+@media screen and (max-width: 800px){
+    .modal{
+        width: 240px;
+    }
+}
+@media screen and (max-width: 500px){
+    .modal{
+        width: 220px;
+    }
+    .item{
+        font-size: 16px;
+        padding: 10px 16px;
+    }
+}
+@media screen and (max-width: 350px){
+    .modal{
+        width: 150px;
+        padding: 8px 14px;
+    }
+    .input__label{
+        font-size: 14px;
+    }
+    .input{
+        padding: 4px 3px 4px 8px;
+    }
+    .buttons{
+        margin-top: 0;
+    }
+    .button{
+        font-size: 14px;
+    }
+
+    .context__modal{
+        width: 150px;
+    }
+    .item{
+        font-size: 14px;
+        padding: 8px 14px;
+    }
+}
+
+@media screen and (max-width: 280px){
+    .context__modal{
+        width: 100px;
+    }
+    .item{
+        padding: 6px 12px;
+    }
 }

@@ -46,7 +46,7 @@
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
-    user-select: none;
+    user-select: none !important;
 }
 
 .content{
@@ -257,6 +257,8 @@
         justify-content: center;
         gap: 250px;
         padding: 70px 20px 20px 20px;
+        height: 100px !important;
+        box-sizing: border-box;
     }
     .nav__item{
         display: none;
@@ -338,5 +340,11 @@
     .nav__item{
         font-size: 14px;
         word-break: break-all;
+    }
+}
+
+@media screen and (max-width: 300px){
+    .nav__item{
+        font-size: 12px
     }
 }
