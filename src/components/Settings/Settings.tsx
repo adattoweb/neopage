@@ -4,7 +4,6 @@ import styles from "./Settings.module.css"
 import NavItem from "./NavItem"
 import NavProvider from "./NavProvider"
 
-import { motion } from "framer-motion"
 import { useLanguageStore } from "@/store/useLanguageStore"
 import { useSettingsOpenStore } from "@/store/useSettingsOpen"
 
@@ -55,7 +54,7 @@ export default function Settings(){
 
     if(!isOpen) return
     return (
-        <motion.div className={styles.settings} id="settings">
+        <div className={styles.settings} id="settings">
             <div className={styles.menu} id="menu">
                 <svg className={styles.cross} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" onClick={closeSettings}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -65,6 +64,6 @@ export default function Settings(){
                 </div>
             </div>
             <NavProvider selected={selected}/>
-        </motion.div>
+        </div>
     )
 }

@@ -1,3 +1,4 @@
+import { getLocal } from "@/helpers/getLocal";
 import { create } from "zustand";
 
 interface QuoteState {
@@ -6,7 +7,7 @@ interface QuoteState {
 }
 
 export const useQuoteState = create<QuoteState>((set) => ({
-    quote: localStorage.getItem("neopage-quote")!,
+    quote: getLocal("neopage-quote", "true"),
     setQuote: (quote) => {
         set({ quote })
     }

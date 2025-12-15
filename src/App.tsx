@@ -15,7 +15,8 @@ import { initialization } from "./helpers/initialization"
 import Wrapper from "./Wrapper"
 import ThemeModal from "./components/Modals/ThemeModal"
 import { usePosStore } from "./store/usePosStore"
-import { useModalsStore } from "./store/useModalStore"
+import { useModalsStore } from "./store/useModalsStore"
+import ThemeEdit from "./components/Modals/ThemeEditModal"
 
 export default function App() {
   initialization()
@@ -63,6 +64,7 @@ export default function App() {
       <EditModal />
       <CreateModal />
       <ThemeModal/>
+      <ThemeEdit/>
       <Wrapper>
         {isQuoteEnabled && <Quotes />}
         <div className={styles.search}>

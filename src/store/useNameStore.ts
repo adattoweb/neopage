@@ -1,3 +1,4 @@
+import { getLocal } from "@/helpers/getLocal";
 import { create } from "zustand";
 
 interface NameState {
@@ -6,7 +7,7 @@ interface NameState {
 }
 
 export const useNameStore = create<NameState>((set) => ({
-  name: localStorage.getItem("neopage-name")!,
+  name: getLocal("neopage-name", "user"),
   setName: (name) => {
     set({ name });
   },

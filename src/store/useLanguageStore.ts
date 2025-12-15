@@ -1,3 +1,4 @@
+import { getLocal } from "@/helpers/getLocal";
 import { create } from "zustand";
 
 interface LanguageState {
@@ -6,7 +7,7 @@ interface LanguageState {
 }
 
 export const useLanguageStore = create<LanguageState>((set) => ({
-  lang: localStorage.getItem("neopage-lang") || "en",
+  lang: getLocal("neopage-lang", "en"),
 
   setLang: (lang) => {
     localStorage.setItem("neopage-lang", lang);

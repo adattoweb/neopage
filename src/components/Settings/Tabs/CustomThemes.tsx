@@ -1,55 +1,56 @@
 import styles from "../Settings.module.css"
 
-import { useState } from "react"
 import Add from "./Add"
-import { useModalsStore } from "@/store/useModalStore"
+import { useModalsStore, type Modals } from "@/store/useModalsStore"
 import { useThemesStore } from "@/store/useThemesStore"
+import { useCustomStore } from "@/store/useCustomThemeStore"
 
 export interface Theme {
     src: string
 }
 
 interface ThemeProps extends Theme {
-    index: number
-    selectedIndex: number
-    setSelectedIndex: React.Dispatch<React.SetStateAction<number>>
-    themes: string[]
-    setThemes: (value: string[]) => void
+    src: string
+    link: string
+    setLink: (value: string) => void
+    modals: Modals
 }
   
-function ThemesItem({ src, index, selectedIndex, setSelectedIndex, themes, setThemes }:ThemeProps){
+function ThemesItem({ src, link, setLink, modals }:ThemeProps){
+    const setModals = useModalsStore(state => state.setModals)
     function handleClick(){
-        setSelectedIndex(index)
+        setLink(src)
         localStorage.setItem("neopage-background", src)
         document.documentElement.style.setProperty("--background", `url(${src})`)
     }
     function handleContext(e: React.MouseEvent){
         e.preventDefault()
-        let newThemes = [...themes]
-        newThemes = newThemes.filter(el => el !== src)
-        setThemes(newThemes)
-        localStorage.setItem("neopage-themes", JSON.stringify(newThemes))
+        e.stopPropagation()
+        setModals({ isContextOpen: false, isEditOpen: false, isCreateOpen: false, isThemeCreateOpen: false, isThemeEditOpen: !modals.isThemeEditOpen })
+        setLink(src)
     }
     return (
-        <div style={{backgroundImage: `url(${src})`}} className={`${styles.theme} ${index === selectedIndex ? styles.active : ""}`} onClick={handleClick} onContextMenu={handleContext}></div>
+        <div style={{backgroundImage: `url(${src})`}} className={`${styles.theme} ${src === link ? styles.active : ""}`} onClick={handleClick} onContextMenu={handleContext}></div>
     )
 }
 
 export default function CustomThemes(){
     const themes = useThemesStore(state => state.themes)
-    const setThemes = useThemesStore(state => state.setThemes)
 
-    const [selectedIndex, setSelectedIndex] = useState(themes.findIndex(el => el === localStorage.getItem("neopage-background")))
+    const link = useCustomStore(state => state.link)
+    const setLink = useCustomStore(state => state.setLink)
 
     const modals = useModalsStore(state => state.modals)
     const setModals = useModalsStore(state => state.setModals)
+
+    console.log(themes)
 
 
     return (
         <div className={styles.list} id="list">
             <div className={styles.themes}>
                 <Add closeModals={() => setModals({ isContextOpen: false, isEditOpen: false, isCreateOpen: false, isThemeCreateOpen: !modals.isThemeCreateOpen, isThemeEditOpen: false })}/>
-                {themes.map((el, index) => <ThemesItem key={index} src={el} index={index} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} themes={themes} setThemes={setThemes}/>)}
+                {themes.map((el, index) => <ThemesItem key={index} src={el} link={link} setLink={setLink} modals={modals}/>)}
             </div>
         </div>
     )

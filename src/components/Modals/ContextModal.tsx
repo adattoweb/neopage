@@ -2,7 +2,7 @@ import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion"
 import styles from "./Modal.module.css"
 import { useLanguageStore } from "@/store/useLanguageStore";
-import { useModalsStore } from "@/store/useModalStore";
+import { useModalsStore } from "@/store/useModalsStore";
 import { usePosStore } from "@/store/usePosStore";
 import { useSettingsOpenStore } from "@/store/useSettingsOpen";
 

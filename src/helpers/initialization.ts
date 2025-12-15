@@ -6,8 +6,8 @@ export function initialization(){
     
     const defaults: DefaultsMap = {
         "neopage-lang": "en",
-        "neopage-theme": "light",
-        "neopage-quote": "false",
+        "neopage-theme": "dark",
+        "neopage-quote": "true",
         "neopage-name": "user",
         "neopage-blur": "60",
         "neopage-transparency" : "5",

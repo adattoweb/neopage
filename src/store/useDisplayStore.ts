@@ -1,3 +1,4 @@
+import { getLocal } from "@/helpers/getLocal";
 import { create } from "zustand";
 
 interface DisplayState {
@@ -6,7 +7,7 @@ interface DisplayState {
 }
 
 export const useDisplayState = create<DisplayState>((set) => ({
-    display: localStorage.getItem("neopage-display")!,
+    display: getLocal("neopage-display", "greetings"),
     setDisplay: (display) => {
         set({display})
     }

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-interface Modals {
+export interface Modals {
     isContextOpen: boolean
     isEditOpen: boolean
     isCreateOpen: boolean

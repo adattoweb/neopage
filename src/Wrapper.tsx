@@ -1,5 +1,5 @@
 import styles from "./App.module.css"
-import { useModalsStore } from "./store/useModalStore";
+import { useModalsStore } from "./store/useModalsStore";
 
 interface WrapperProps {
     children: React.ReactNode

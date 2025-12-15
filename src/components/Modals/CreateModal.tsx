@@ -1,10 +1,10 @@
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion"
 import styles from "./Modal.module.css"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { PinObject } from "../Settings/Tabs/Pinned";
 import { regex } from "@/helpers/HTTPRegex";
-import { useModalsStore } from "@/store/useModalStore";
+import { useModalsStore } from "@/store/useModalsStore";
 import { useLanguageStore } from "@/store/useLanguageStore";
 import { usePosStore } from "@/store/usePosStore";
 import { usePinsStore } from "@/store/usePinsStore";
@@ -27,9 +27,6 @@ export default function CreateModal(){
     const pins = usePinsStore(state => state.pins)
     const setPins = usePinsStore(state => state.setPins)
 
-    useEffect(() => { // ТРЕБА БУДЕ ПЕРЕГЛЯНУТИ
-        posStore.setPos({x: posStore.pos.x, y: posStore.pos.y})
-    }, [modals])
 
     function disableError(){
         if(error.text !== ""){

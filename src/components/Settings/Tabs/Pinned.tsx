@@ -1,7 +1,7 @@
 import Pin from "./Pin"
 import Add from "./Add"
 import styles from "../Settings.module.css"
-import { useModalsStore } from "@/store/useModalStore"
+import { useModalsStore } from "@/store/useModalsStore"
 import { usePinsStore } from "@/store/usePinsStore"
 import { useSelectedNameStore } from "@/store/useSelectedNameStore"
 

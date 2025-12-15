@@ -27,7 +27,7 @@ export default function Themes(){
     return (
         <div className={styles.list} id="list">
             <div className={styles.themes}>
-                {themes.map((el, index) => <ThemesItem preview={el.preview} src={el.src} index={index} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex}/>)}
+                {themes.map((el, index) => <ThemesItem key={index} preview={el.preview} src={el.src} index={index} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex}/>)}
             </div>
         </div>
     )

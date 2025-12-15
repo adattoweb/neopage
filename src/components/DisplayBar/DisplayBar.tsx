@@ -4,5 +4,5 @@ import { useDisplayState } from "@/store/useDisplayStore"
 
 export default function DisplayBar(){
     const display = useDisplayState(state => state.display)
-    return display === "time" ? <TimeBar/> : display === "greetings" ? <HelloBar/> : null
+    return display === "time" ? <TimeBar/> : <HelloBar/>
 }

@@ -1,7 +1,7 @@
 import styles from "./SearchFooter.module.css"
 import Pin from "./Pin"
 import type { PinObject } from "../Settings/Tabs/Pinned"
-import { useModalsStore } from "@/store/useModalStore"
+import { useModalsStore } from "@/store/useModalsStore"
 import { usePinsStore } from "@/store/usePinsStore"
 import { useSelectedNameStore } from "@/store/useSelectedNameStore"
 

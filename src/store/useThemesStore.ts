@@ -9,6 +9,7 @@ interface ThemesState {
 export const useThemesStore = create<ThemesState>((set) => ({
   themes: readLocal('neopage-themes'),
   setThemes: (themes) => {
+    localStorage.setItem("neopage-themes", JSON.stringify(themes))
     set({ themes });
   },
 }));

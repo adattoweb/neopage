@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import styles from "./Modal.module.css"
 import { useEffect, useState } from "react";
 import { useLanguageStore } from "@/store/useLanguageStore";
-import { useModalsStore } from "@/store/useModalStore";
+import { useModalsStore } from "@/store/useModalsStore";
 import { usePosStore } from "@/store/usePosStore";
 import { usePinsStore } from "@/store/usePinsStore";
 
@@ -35,10 +35,6 @@ export default function EditModal(){
         setName(pin.name)
         setLink(pin.link)
     }, [selectedName])
-
-    useEffect(() => { // ТРЕБА БУДЕ ПЕРЕГЛЯНУТИ
-        posStore.setPos({x: posStore.pos.x, y: posStore.pos.y})
-    }, [modals])
 
     function editPin(newName:string, newLink:string){
         if(!pin) return
