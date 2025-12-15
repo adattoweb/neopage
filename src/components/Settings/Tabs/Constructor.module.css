@@ -28,6 +28,7 @@
     border-radius: calc(var(--radius, 24) * 0.25);
     outline: none;
     cursor: pointer;
+    --thumb-size: 22px;
   }
   
   /* Лінія для Firefox */
@@ -41,8 +42,8 @@
   
   /* Кружок (ручка) */
   .slider::-moz-range-thumb {
-    width: 22px;
-    height: 22px;
+    width: var(--thumb-size, 22);
+    height: var(--thumb-size, 22);
     border-radius: 50%;
     background: rgba(255,255,255,0.1);
     backdrop-filter: blur(10px);
@@ -52,8 +53,8 @@
   .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 22px;
-    height: 22px;
+    width: var(--thumb-size, 22);
+    height: var(--thumb-size, 22);
     border-radius: 50%;
     background: rgba(255,255,255,0.1);
     backdrop-filter: blur(10px);
@@ -79,10 +80,7 @@
   }
   .slider{
     width: 100px;
-  }
-  .slider::-webkit-slider-thumb, .slider::-moz-range-thumb{
-    width: 18px;
-    height: 18px;
+    --thumb-size: 18px;
   }
 }
 
@@ -95,15 +93,12 @@
   }
   .slider{
     width: 80px;
-  }
-  .slider::-webkit-slider-thumb, .slider::-moz-range-thumb{
-    width: 16px;
-    height: 16px;
+    --thumb-size: 16px;
   }
 }
 @media screen and (max-width: 500px){
-  .slider::-webkit-slider-thumb, .slider::-moz-range-thumb{
-    width: 14px;
-    height: 14px;
+  .slider{
+    height: 5px;
+    --thumb-size: 14px;
   }
 }

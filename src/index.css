@@ -4,7 +4,8 @@
   --blur: 100px;
   --alpha: 0.2;
   --radius: 24px;
-  --background: url("/themes/themes/theme1.jpg")
+  --background: url("/themes/themes/theme1.jpg");
+  --color: #fff;
 }
 
 body{
@@ -19,7 +20,7 @@ body, html{
 
 * {
   font-family: "Montserrat Alternates", sans-serif;
-  color: #fff;
+  color: var(--color, #fff);
   margin: 0;
   padding: 0;
 }

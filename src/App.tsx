@@ -9,7 +9,7 @@ import Modal from "./components/Modals/ContextModal"
 import EditModal from "./components/Modals/EditModal"
 import CreateModal from "./components/Modals/CreateModal"
 
-import { useEffect, useRef } from "react"
+import { useEffect } from "react"
 import Quotes from "./components/Quotes/Quotes"
 import { initialization } from "./helpers/initialization"
 import Wrapper from "./Wrapper"
@@ -19,9 +19,6 @@ import { useModalsStore } from "./store/useModalStore"
 
 export default function App() {
   initialization()
-
-  const rerender = useRef(0)
-  console.log(rerender.current++)
 
   useEffect(() => {
     const isDark = localStorage.getItem("neopage-theme") === "dark"
