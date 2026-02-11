@@ -14,14 +14,14 @@ function Select({ select, value, setSelected }:SelectProps){
     )
 }
 
-interface DropdownPorps {
+interface DropdownProps {
     selected: string
     setSelected: (value: string) => void
     array: string[][]
     minWidth?: number
 }
 
-export default function Dropdown({ selected, setSelected, array, minWidth }:DropdownPorps){
+export default function Dropdown({ selected, setSelected, array, minWidth }:DropdownProps){
     if(!minWidth) minWidth = 40
     const [isOpen, setIsOpen] = useState(false)
     return (
