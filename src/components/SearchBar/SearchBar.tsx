@@ -1,8 +1,8 @@
-import { useState } from "react"
+import { useRef } from "react"
 import styles from "./SearchBar.module.css"
 
 export default function SearchBar(){
-    const [search, setSearch] = useState("")
+    const searchRef = useRef<HTMLInputElement | null>(null)
 
     function startSearch(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault()
@@ -14,13 +14,13 @@ export default function SearchBar(){
             duckduckgo: "https://duckduckgo.com/?q=",
             qwant: "https://www.qwant.com/?q="
         };
-        const url = searchEngines[engine] + encodeURIComponent(search)
+        const url = searchEngines[engine] + encodeURIComponent(searchRef.current?.value ?? "")
         window.open(url, "_self")
     }
 
     return (
         <form onSubmit={startSearch}>
-            <input autoFocus className={`${styles.field} back-alpha`} type="text" value={search} onChange={(e) => setSearch(e.target.value)}/>
+            <input autoFocus className={`${styles.field} back-alpha`} type="text" ref={searchRef}/>
         </form>
     )
 }

@@ -1,22 +1,18 @@
-import { createPortal } from "react-dom";
-import { motion, AnimatePresence } from "framer-motion"
-import styles from "./Modal.module.css"
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLanguageStore } from "@/store/useLanguageStore";
 import { useModalsStore } from "@/store/useModalsStore";
-import { usePosStore } from "@/store/usePosStore";
 import { usePinsStore } from "@/store/usePinsStore";
 
 import type { PinObject } from "../Settings/Tabs/Pinned";
 import { useSelectedNameStore } from "@/store/useSelectedNameStore";
-import { useModal } from "@/hooks/useModal";
+import { Modal } from "./Modal/Modal";
+import { Button, ButtonWrapper, Header, Input } from "./Modal/Constructor";
 
 export default function EditModal(){
 
     const modals = useModalsStore(state => state.modals)
     const setModals = useModalsStore(state => state.setModals)
     const lang = useLanguageStore(state => state.lang);
-    const posStore = usePosStore.getState()
     const pins = usePinsStore(state => state.pins)
     const setPins = usePinsStore(state => state.setPins)
     
@@ -29,26 +25,20 @@ export default function EditModal(){
         name: "",
         link: ""
     }
-    const [name, setName] = useState(selectedName)
+    console.log(pin)
     const [link, setLink] = useState(pin.link)
 
-    useEffect(() => {
-        setName(pin.name)
-        setLink(pin.link)
-    }, [selectedName])
-
     function editPin(newName:string, newLink:string){
+        console.log(link)
         if(!pin) return
-        if(newName === name) setLink(newLink) 
-        else setName(newName)
-
-        setSelectedName(newName)
+        const newPins = [...pins]
         pin.name = newName;
         pin.link = newLink;
-        pins[index] = pin
+        newPins[index] = pin
+        localStorage.setItem("neopage-pins", JSON.stringify(newPins))
 
-        setPins(pins)
-        localStorage.setItem("neopage-pins", JSON.stringify(pins))
+        setSelectedName(newName)
+        setLink(newLink)
     }
 
     function deletePin(){
@@ -60,37 +50,21 @@ export default function EditModal(){
 
         setModals({ isContextOpen: false, isEditOpen: false, isCreateOpen: false, isThemeCreateOpen: false, isThemeEditOpen: false })
         setSelectedName("")
-        setPins(pins)
-        localStorage.setItem("neopage-pins", JSON.stringify(pins))
+        setPins(newPins)
+        localStorage.setItem("neopage-pins", JSON.stringify(newPins))
     }
 
-    const modalRef = useRef<HTMLDivElement | null>(null)
+    const closeModals = () => setModals({ isContextOpen: false, isEditOpen: false, isCreateOpen: false, isThemeCreateOpen: false, isThemeEditOpen: false })
 
-    const modal = useModal(modalRef)
-
-    let isLeft = false;
-    let isTop = false;
-    if(window.innerWidth - posStore.pos.x <= modal.width) isLeft = true
-    if(window.innerHeight - posStore.pos.y <= modal.height) isTop = true
-
-    return createPortal(
-        <AnimatePresence mode="wait">
-            {modals.isEditOpen && <motion.div key="modal" ref={modalRef} className={`${styles.modal} back-alpha`} style={{top: isTop ? posStore.pos.y - modal.height : posStore.pos.y, left: isLeft ? posStore.pos.x - modal.width : posStore.pos.x}} initial={{opacity: 0, scale: 0.5}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0.8}} onClick={(e) => e.stopPropagation()}>
-                <h2 className={styles.header}>{selectedName}</h2>
-                <div className={styles.wrapper}>
-                    <label className={styles.input__label} htmlFor="name">{lang === "en" ? "Name" : "Назва"}</label>
-                    <input className={styles.input} type="text" id="name" value={name} onChange={(e) => editPin(e.target.value, link)} maxLength={32}/>
-                </div>
-                <div className={styles.wrapper}>
-                    <label className={styles.input__label} htmlFor="link">{lang === "en" ? "Link" : "Посилання"}</label>
-                    <input className={styles.input} type="text" id="link" value={link} onChange={(e) => editPin(name, e.target.value)}/>
-                </div>
-                <div className={styles.buttons}>
-                    <motion.div className={styles.button} whileTap={{scale: 1.05}} onClick={deletePin}>{lang === "en" ? "Delete" : "Видалити"}</motion.div>
-                    <motion.div className={styles.button} whileTap={{scale: 1.05}} onClick={() => setModals({ isContextOpen: false, isEditOpen: false, isCreateOpen: false, isThemeCreateOpen: false, isThemeEditOpen: false })}>{lang === "en" ? "Save" : "Зберегти"}</motion.div>
-                </div>
-            </motion.div>}
-        </AnimatePresence>,
-        document.getElementById("root")!
+    return (
+        <Modal isOpen={modals.isEditOpen}>
+            <Header>{selectedName}</Header>
+            <Input id="name" name={lang === "en" ? "Name" : "Назва"} value={selectedName} onChange={(e) => editPin(e.target.value, link)}/>
+            <Input id="link" name={lang === "en" ? "Link" : "Посилання"} value={link} onChange={(e) => editPin(selectedName, e.target.value)}/>
+            <ButtonWrapper>
+                <Button onClick={deletePin}>{lang === "en" ? "Delete" : "Видалити"}</Button>
+                <Button onClick={closeModals}>{lang === "en" ? "Save" : "Зберегти"}</Button>
+            </ButtonWrapper>
+        </Modal>
     )
 }

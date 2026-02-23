@@ -1,14 +1,12 @@
-import { createPortal } from "react-dom";
-import { motion, AnimatePresence } from "framer-motion"
-import styles from "./Modal.module.css"
+import styles from "./Modal/Modal.module.css"
 import { useLanguageStore } from "@/store/useLanguageStore";
 import { useModalsStore } from "@/store/useModalsStore";
-import { usePosStore } from "@/store/usePosStore";
 import { useSettingsOpenStore } from "@/store/useSettingsOpen";
-import { useRef } from "react";
-import { useModal } from "@/hooks/useModal";
 
-export default function Modal(){
+import { Modal } from "./Modal/Modal";
+import { Link } from "./Modal/Constructor";
+
+export default function ContextModal(){
     const setIsOpen = useSettingsOpenStore(state => state.setIsOpen)
     function openSettings(){
         setIsOpen(true)
@@ -16,27 +14,11 @@ export default function Modal(){
 
     const modals = useModalsStore(state => state.modals)
     const lang = useLanguageStore(state => state.lang);
-    const posStore = usePosStore.getState()
 
-    const modalRef = useRef<HTMLDivElement | null>(null)
-
-    const modal = useModal(modalRef)
-
-    console.log(modal)
-    
-
-    let isLeft = false;
-    let isTop = false;
-    if(window.innerWidth - posStore.pos.x <= modal.width) isLeft = true
-    if(window.innerHeight - posStore.pos.y <= modal.height) isTop = true
-
-    return createPortal(
-        <AnimatePresence mode="wait">
-            {modals.isContextOpen && <motion.div key="modal" ref={modalRef} className={`${styles.context__modal} back-alpha`} style={{top: isTop ? posStore.pos.y - modal.height : posStore.pos.y, left: isLeft ? posStore.pos.x - modal.width : posStore.pos.x}} initial={{opacity: 0, scale: 0.5}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0.8}}>
-                <p className={styles.item} onClick={openSettings}>{lang === "en" ? "Settings" : "Налаштування"}</p>
-                <a className={styles.item} target="_blank" href="https://github.com/adattoweb">{lang === "en" ? "Developer’s GitHub" : "Github розробника"}</a>
-            </motion.div>}
-        </AnimatePresence>,
-        document.getElementById("root")!
+    return (
+        <Modal className={styles.context__modal} isOpen={modals.isContextOpen}>
+            <Link onClick={openSettings}>{lang === "en" ? "Settings" : "Налаштування"}</Link>
+            <Link target="_blank" href="https://github.com/adattoweb">{lang === "en" ? "Developer’s GitHub" : "Github розробника"}</Link>
+        </Modal>
     )
 }

@@ -1,14 +1,11 @@
-import { createPortal } from "react-dom";
-import { motion, AnimatePresence } from "framer-motion"
-import styles from "./Modal.module.css"
-import { useRef, useState } from "react";
+import { useState } from "react";
 import type { PinObject } from "../Settings/Tabs/Pinned";
 import { regex } from "@/helpers/HTTPRegex";
 import { useModalsStore } from "@/store/useModalsStore";
 import { useLanguageStore } from "@/store/useLanguageStore";
-import { usePosStore } from "@/store/usePosStore";
 import { usePinsStore } from "@/store/usePinsStore";
-import { useModal } from "@/hooks/useModal";
+import { Modal } from "./Modal/Modal";
+import { Button, ButtonWrapper, Error, Input } from "./Modal/Constructor";
 
 interface Error {
     text: string
@@ -23,7 +20,6 @@ export default function CreateModal(){
     const modals = useModalsStore(state => state.modals)
     const setModals = useModalsStore(state => state.setModals)
     const lang = useLanguageStore(state => state.lang);
-    const posStore = usePosStore.getState()
 
     const pins = usePinsStore(state => state.pins)
     const setPins = usePinsStore(state => state.setPins)
@@ -72,33 +68,17 @@ export default function CreateModal(){
         setError({text: "", ID: 0})
     }
 
-    const modalRef = useRef<HTMLDivElement | null>(null)
-
-    const modal = useModal(modalRef)
-
-    let isLeft = false;
-    let isTop = false;
-    if(window.innerWidth - posStore.pos.x <= modal.width) isLeft = true
-    if(window.innerHeight - posStore.pos.y <= modal.height) isTop = true
-
-    return createPortal(
-        <AnimatePresence mode="wait">
-            {modals.isCreateOpen && <motion.div key="modal" ref={modalRef} className={`${styles.modal} back-alpha`} style={{top: isTop ? posStore.pos.y - modal.height : posStore.pos.y, left: isLeft ? posStore.pos.x - modal.width : posStore.pos.x}} initial={{opacity: 0, scale: 0.5}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0.8}} onClick={(e) => e.stopPropagation()}>
-                <div className={styles.wrapper}>
-                    <label className={styles.input__label} htmlFor="name">{lang === "en" ? "Name" : "Назва"}</label>
-                    <input className={styles.input} type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} maxLength={32}/>
-                    {error.ID === 1 && <p className={styles.error}>{error.text}</p>}
-                </div>
-                <div className={styles.wrapper}>
-                    <label className={styles.input__label} htmlFor="link">{lang === "en" ? "Link" : "Посилання"}</label>
-                    <input className={styles.input} type="text" id="link" value={link} onChange={(e) => setLink(e.target.value)}/>
-                    {error.ID === 2 && <p className={styles.error}>{error.text}</p>}
-                </div>
-                <div className={styles.buttons}>
-                    <motion.div className={styles.button} whileTap={{scale: 1.05}} onClick={addPin}>{lang === "en" ? "Add" : "Додати"}</motion.div>
-                </div>
-            </motion.div>}
-        </AnimatePresence>,
-        document.getElementById("root")!
+    return (
+        <Modal isOpen={modals.isCreateOpen}>
+            <Input id="name" name={lang === "en" ? "Name" : "Назва"} value={name} onChange={(e) => setName(e.target.value)}>
+                <Error hasError={error.ID === 1} error={error.text}/>
+            </Input>
+            <Input id="link" name={lang === "en" ? "Link" : "Посилання"} value={link} onChange={(e) => setLink(e.target.value)}>
+                <Error hasError={error.ID === 2} error={error.text}/>
+            </Input>
+            <ButtonWrapper>
+                <Button onClick={addPin}>{lang === "en" ? "Add" : "Додати"}</Button>
+            </ButtonWrapper>
+        </Modal>
     )
 }

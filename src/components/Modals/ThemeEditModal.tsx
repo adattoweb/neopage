@@ -1,6 +1,6 @@
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion"
-import styles from "./Modal.module.css"
+import styles from "./Modal/Modal.module.css"
 import { useEffect, useRef, useState } from "react";
 import { regex } from "@/helpers/HTTPRegex";
 import { useLanguageStore } from "@/store/useLanguageStore";

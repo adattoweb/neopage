@@ -8,17 +8,23 @@
     font-size: 36px;
     font-weight: 500;
 }
-@media screen and (max-width: 1600px){
+@media screen and (max-width: 2200px){
     .field {
         height: 90px;
         width: 800px;
     }
 }
+@media screen and (max-width: 1600px){
+    .field {
+        height: 85px;
+        width: 750px;
+    }
+}
 
 @media screen and (max-width: 1300px){
     .field {
-        width: 700px;
-        height: 80px;
+        width: 650px;
+        height: 75px;
         padding-left: 36px;
         font-size: 32px;
     }
@@ -26,13 +32,13 @@
 
 @media screen and (max-width: 900px){
     .field {
-        width: 600px;
+        width: 550px;
         padding-left: 30px;
     }
 }
 @media screen and (max-width: 700px){
     .field {
-        width: 500px;
+        width: 450px;
         height: 70px;
         padding-left: 24px;
         font-size: 28px;
@@ -40,7 +46,7 @@
 }
 @media screen and (max-width: 550px){
     .field {
-        width: 400px;
+        width: 350px;
         height: 60px;
         font-size: 24px;
     }
@@ -48,13 +54,13 @@
 
 @media screen and (max-width: 450px){
     .field {
-        width: 350px;
+        width: 300px;
     }
 }
 
 @media screen and (max-width: 400px){
     .field {
-        width: 300px;
+        width: 275px;
         height: 55px;
         padding-left: 18px;
         font-size: 22px;
@@ -63,7 +69,7 @@
 
 @media screen and (max-width: 330px){
     .field {
-        width: 250px;
+        width: 225px;
         height: 50px;
         font-size: 20px;
     }
