@@ -14,9 +14,10 @@
     border: none;
     font-size: 18px;
     width: 150px;
-    height: 30px;
-    padding: 2px 12px;
+    height: 36px;
+    padding: 2px 14px;
     border-radius: calc(var(--radius, 24) * 0.5);
+    box-sizing: border-box;
 }
 
 .slider {
@@ -76,10 +77,12 @@
     font-size: 18px;
   }
   .input{
-    width: 100px;
+    width: 120px;
+    padding: 2px 10px;
+    font-size: 16px;
   }
   .slider{
-    width: 100px;
+    width: 120px;
     --thumb-size: 18px;
   }
 }
@@ -88,17 +91,27 @@
   .block__name{
     font-size: 16px;
   }
-  .input{
-    width: 80px;
-  }
   .slider{
-    width: 80px;
     --thumb-size: 16px;
   }
 }
 @media screen and (max-width: 500px){
   .slider{
+    width: 100px;
     height: 5px;
     --thumb-size: 14px;
+  }
+  .input{
+    width: 100px;
+  }
+}
+@media screen and (max-width: 300px){
+  .slider{
+    width: 80px;
+    height: 5px;
+    --thumb-size: 14px;
+  }
+  .input{
+    width: 80px;
   }
 }
