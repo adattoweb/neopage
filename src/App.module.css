@@ -14,47 +14,52 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 1000px;
+  width: 950px;
+}
+@media screen and (max-width: 2200px){
+  .search{
+      width: 800px;
+  }
 }
 @media screen and (max-width: 1600px){
   .search{
-      width: 800px;
+      width: 750px;
   }
 }
 
 @media screen and (max-width: 1300px){
   .search{
-      width: 700px;
+      width: 600px;
   }
 }
 @media screen and (max-width: 900px){
   .search{
-      width: 600px;
+      width: 500px;
   }
 }
 @media screen and (max-width: 700px){
   .search{
-      width: 500px;
+      width: 400px;
   }
 }
 
 @media screen and (max-width: 550px){
   .search{
-      width: 400px;
+      width: 350px;
   }
 }
 @media screen and (max-width: 450px){
   .search{
-      width: 350px;
+      width: 300px;
   }
 }
 @media screen and (max-width: 400px){
   .search{
-      width: 300px;
+      width: 275px;
   }
 }
 @media screen and (max-width: 330px){
   .search{
-      width: 250px;
+      width: 225px;
   }
 }
