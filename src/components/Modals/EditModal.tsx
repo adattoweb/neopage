@@ -25,20 +25,26 @@ export default function EditModal(){
         name: "",
         link: ""
     }
-    console.log(pin)
+    const [name, setName] = useState(selectedName)
     const [link, setLink] = useState(pin.link)
 
+    useEffect(() => {
+        setName(pin.name)
+        setLink(pin.link)
+    }, [selectedName])
+
     function editPin(newName:string, newLink:string){
-        console.log(link)
         if(!pin) return
-        const newPins = [...pins]
-        pin.name = newName;
-        pin.link = newLink;
-        newPins[index] = pin
-        localStorage.setItem("neopage-pins", JSON.stringify(newPins))
+        if(newName === name) setLink(newLink) 
+        else setName(newName)
 
         setSelectedName(newName)
-        setLink(newLink)
+        pin.name = newName;
+        pin.link = newLink;
+        pins[index] = pin
+
+        setPins(pins)
+        localStorage.setItem("neopage-pins", JSON.stringify(pins))
     }
 
     function deletePin(){
@@ -66,5 +72,5 @@ export default function EditModal(){
                 <Button onClick={closeModals}>{lang === "en" ? "Save" : "Зберегти"}</Button>
             </ButtonWrapper>
         </Modal>
-    )
+   )
 }
