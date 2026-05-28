@@ -1,8 +1,8 @@
 import TimeBar from "./TimeBar"
 import HelloBar from "./HelloBar"
-import { useDisplayState } from "@/store/useDisplayStore"
+import { useDisplayStore } from "@/store/useDisplayStore"
 
-export default function DisplayBar(){
-    const display = useDisplayState(state => state.display)
-    return display === "time" ? <TimeBar/> : display === "greetings" ? <HelloBar/> : null
+export default function DisplayBar() {
+    const display = useDisplayStore(state => state.display)
+    return display === "time" ? <TimeBar /> : display === "greetings" ? <HelloBar /> : null
 }
