@@ -49,6 +49,7 @@
 .image {
     width: 64px;
     height: 64px;
+    border-radius: 16px;
 }
 
 @media screen and (max-width: 1300px) {
